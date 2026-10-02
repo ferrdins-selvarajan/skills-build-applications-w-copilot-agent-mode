@@ -16,6 +16,8 @@ Set `MONGODB_URI` to override the default MongoDB connection string, and `PORT`
 to override the API port. In Codespaces the API base URL is printed using
 `CODESPACE_NAME`; browser requests are allowed from the corresponding
 Codespaces frontend URL on port `5173` and from `http://localhost:5173`.
+The API base URL is `https://$CODESPACE_NAME-8000.app.github.dev` in Codespaces
+and `http://localhost:8000` otherwise.
 
 Populate the database with repeatable demo users, teams, activities, leaderboard
 totals, and workout plans:
@@ -36,6 +38,7 @@ for all four demo accounts; do not use it outside local development.
 | Method | Endpoint | Authentication | Purpose |
 | --- | --- | --- | --- |
 | `GET` | `/api/health` | No | API and MongoDB readiness |
+| `GET` | `/api/users` | No | List public user names and teams |
 | `POST` | `/api/auth/register` | No | Create account and issue a bearer token |
 | `POST` | `/api/auth/login` | No | Sign in and issue a bearer token |
 | `GET`, `PATCH` | `/api/users/me` | Bearer token | Read or update the signed-in profile |

@@ -93,6 +93,14 @@ apiRouter.post('/auth/login', async (request, response) => {
   });
 });
 
+apiRouter.get('/users', async (_request, response) => {
+  const users = await User.find()
+    .select('name team')
+    .populate('team', 'name')
+    .sort({ name: 1 });
+  response.json(users);
+});
+
 apiRouter.get('/users/me', authenticate, async (request, response) => {
   const userId = request.userId;
   if (!userId) {

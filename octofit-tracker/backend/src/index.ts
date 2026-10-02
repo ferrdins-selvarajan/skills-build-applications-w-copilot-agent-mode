@@ -6,6 +6,10 @@ import { apiRouter } from './routes/api.js';
 
 const app = express();
 const port = Number(process.env.PORT ?? 8000);
+const codespaceName = process.env.CODESPACE_NAME;
+const apiBaseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : 'http://localhost:8000';
 const allowedOrigins = new Set([
   'http://localhost:5173',
   ...(process.env.CODESPACE_NAME
@@ -77,10 +81,7 @@ async function startServer(): Promise<void> {
   await connectDatabase();
   app.listen(port, () => {
     console.log(`OctoFit Tracker API listening on port ${port}`);
-    const codespaceName = process.env.CODESPACE_NAME;
-    console.log(
-      `API base URL: ${codespaceName ? `https://${codespaceName}-8000.app.github.dev` : `http://localhost:${port}`}`,
-    );
+    console.log(`API base URL: ${apiBaseUrl}`);
   });
 }
 
