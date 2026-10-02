@@ -179,8 +179,8 @@ const demoActivities = [
 ];
 
 /**
- * Seed octofit_db with repeatable test data for users, teams, activities,
- * leaderboard totals, and recommended workout plans.
+ * Seed the octofit_db database with test data: repeatable users, teams,
+ * activities, leaderboard totals, and recommended workout plans.
  */
 async function seedDatabase(): Promise<void> {
   try {
