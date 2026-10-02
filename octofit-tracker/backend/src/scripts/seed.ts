@@ -178,6 +178,10 @@ const demoActivities = [
   },
 ];
 
+/**
+ * Seed octofit_db with repeatable test data for users, teams, activities,
+ * leaderboard totals, and recommended workout plans.
+ */
 async function seedDatabase(): Promise<void> {
   try {
     await mongoose.connect(connectionString);
