@@ -1,5 +1,10 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
 import octofitLogo from '../../../docs/octofitapp-small.png'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
 import './App.css'
 
 function Dashboard() {
@@ -25,15 +30,6 @@ function Dashboard() {
   )
 }
 
-function Activities() {
-  return (
-    <main className="container py-5">
-      <h1 className="fw-bold">Activities</h1>
-      <p className="text-secondary">Your activity tracking workspace is ready to build.</p>
-    </main>
-  )
-}
-
 function App() {
   return (
     <div className="min-vh-100">
@@ -45,12 +41,20 @@ function App() {
           <div className="navbar-nav">
             <NavLink className="nav-link" to="/">Dashboard</NavLink>
             <NavLink className="nav-link" to="/activities">Activities</NavLink>
+            <NavLink className="nav-link" to="/leaderboard">Leaderboard</NavLink>
+            <NavLink className="nav-link" to="/teams">Teams</NavLink>
+            <NavLink className="nav-link" to="/users">Users</NavLink>
+            <NavLink className="nav-link" to="/workouts">Workouts</NavLink>
           </div>
         </div>
       </nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/activities" element={<Activities />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/teams" element={<Teams />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/workouts" element={<Workouts />} />
         <Route path="*" element={<main className="container py-5"><h1>Page not found</h1></main>} />
       </Routes>
     </div>
