@@ -1,7 +1,11 @@
 import useApiCollection from '../hooks/useApiCollection.js'
 
+const apiEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : null
+
 function Teams() {
-  const { records, loading, error } = useApiCollection('teams')
+  const { records, loading, error } = useApiCollection(apiEndpoint)
 
   return (
     <main className="container py-5">

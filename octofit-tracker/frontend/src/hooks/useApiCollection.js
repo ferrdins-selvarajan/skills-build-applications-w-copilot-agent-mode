@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react'
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
-const apiBaseUrl = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev/api`
-  : null
-
 function getCollection(payload) {
   if (Array.isArray(payload)) {
     return payload
@@ -21,14 +16,14 @@ function getCollection(payload) {
   throw new Error('The API response did not contain a list of records.')
 }
 
-async function fetchCollection(resource, signal) {
-  if (!apiBaseUrl) {
+async function fetchCollection(endpoint, signal) {
+  if (!endpoint) {
     throw new Error(
       'Set VITE_CODESPACE_NAME in octofit-tracker/frontend/.env.local to connect to the API.',
     )
   }
 
-  const response = await fetch(`${apiBaseUrl}/${resource}/`, {
+  const response = await fetch(endpoint, {
     headers: { Accept: 'application/json' },
     signal,
   })
@@ -52,7 +47,7 @@ async function fetchCollection(resource, signal) {
   return getCollection(await response.json())
 }
 
-export default function useApiCollection(resource) {
+export default function useApiCollection(endpoint) {
   const [records, setRecords] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -65,7 +60,7 @@ export default function useApiCollection(resource) {
       setError('')
 
       try {
-        setRecords(await fetchCollection(resource, controller.signal))
+        setRecords(await fetchCollection(endpoint, controller.signal))
       } catch (requestError) {
         if (!controller.signal.aborted) {
           setError(
@@ -83,7 +78,7 @@ export default function useApiCollection(resource) {
 
     loadRecords()
     return () => controller.abort()
-  }, [resource])
+  }, [endpoint])
 
   return { records, loading, error }
 }

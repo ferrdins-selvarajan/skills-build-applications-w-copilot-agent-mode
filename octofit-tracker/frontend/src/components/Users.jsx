@@ -1,7 +1,11 @@
 import useApiCollection from '../hooks/useApiCollection.js'
 
+const apiEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users/`
+  : null
+
 function Users() {
-  const { records, loading, error } = useApiCollection('users')
+  const { records, loading, error } = useApiCollection(apiEndpoint)
 
   return (
     <main className="container py-5">

@@ -1,12 +1,16 @@
 import useApiCollection from '../hooks/useApiCollection.js'
 
+const apiEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/`
+  : null
+
 function formatDate(value) {
   const date = new Date(value)
   return Number.isNaN(date.getTime()) ? 'Date unavailable' : date.toLocaleDateString()
 }
 
 function Activities() {
-  const { records, loading, error } = useApiCollection('activities')
+  const { records, loading, error } = useApiCollection(apiEndpoint)
 
   return (
     <main className="container py-5">
